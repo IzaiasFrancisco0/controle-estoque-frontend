@@ -48,7 +48,7 @@ const CadastrarProduto = () => {
     console.log("Enviando para API:", novoProduto);
 
     try {
-      const response = await axios.post('http://localhost:5000/cadastrar', novoProduto, { withCredentials: true });
+      const response = await axios.post('https://controle-estoque-backend-4.onrender.com/cadastrar', novoProduto, { withCredentials: true });
       console.log("Produto cadastrado!!", response.data);
 
       setProdutoCadastrado(true);

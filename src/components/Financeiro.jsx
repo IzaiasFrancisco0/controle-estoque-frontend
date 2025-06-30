@@ -9,7 +9,7 @@ const Financeiro = () => {
     useEffect(() => {
         const buscarProdutos = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/');
+                const response = await axios.get('https://controle-estoque-backend-4.onrender.com/');
                 const produtos = response.data;
 
                 let totalGeral = 0;
@@ -59,7 +59,6 @@ const Financeiro = () => {
                     ))}
                 </select>
             </div>
-
             {categoriaSelecionada && (
                 <div className="w-[80%] h-[300px] mb-6 p-6 bg-blue-100 text-center rounded-lg shadow-md">
                     <h3 className="text-6xl font-semibold mb-2">Total em {categoriaSelecionada}:</h3>
@@ -67,9 +66,8 @@ const Financeiro = () => {
                         R$ {totaisPorCategoria[categoriaSelecionada].toFixed(2)}
                     </div>
                 </div>
-            )}    
+            )}
 
-            {/* Valor total geral */}
             <div className="w-[80%] h-[300px] mb-6 p-6 bg-green-100 text-center rounded-lg shadow-md">
                 <h3 className="text-6xl font-semibold mb-10">Valor total em estoque:{' '}</h3>
                 <span className="text-8xl text-green-800 font-bold">R$ {valorTotal.toFixed(2)}</span>

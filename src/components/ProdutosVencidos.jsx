@@ -8,8 +8,8 @@ const ProdutosVencidos = () => {
     useEffect(() => {
         const buscarProdutos = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/');
-                
+                const response = await axios.get('https://controle-estoque-backend-4.onrender.com/');
+
                 const hoje = new Date();
                 hoje.setHours(0, 0, 0, 0);
 

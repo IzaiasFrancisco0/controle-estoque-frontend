@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { produtoSchema } from '../schemas.js'; // ajuste conforme seu projeto
+import { produtoSchema } from '../schemas.js';
 
 const DeletarOuAlterar = () => {
   const [produtos, setProdutos] = useState([]);
@@ -16,8 +16,8 @@ const DeletarOuAlterar = () => {
 
   const buscarProdutos = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/', {
-         withCredentials: true,
+      const response = await axios.get('https://controle-estoque-backend-4.onrender.com/', {
+        withCredentials: true,
       });
       const semImagem = response.data.map(({ imagem, ...resto }) => resto);
       setProdutos(semImagem);
@@ -29,7 +29,7 @@ const DeletarOuAlterar = () => {
 
   const buscarSenha = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/conta');
+      const response = await axios.get('https://controle-estoque-backend-4.onrender.com/conta');
       setSenhaCadastrada(response.data.senha);
     } catch (err) {
       console.error("Erro ao buscar a senha", err);
@@ -55,7 +55,7 @@ const DeletarOuAlterar = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:5000/produto/${id}`);
+      await axios.delete(`https://controle-estoque-backend-4.onrender.com/produto/${id}`);
       const novosProdutos = produtos.filter(prod => prod._id !== id);
       setProdutos(novosProdutos);
       handleFiltroCategoria(categoriaSelecionada);
@@ -76,7 +76,6 @@ const DeletarOuAlterar = () => {
       let novoValor = valor;
 
       if (campo === "preco") {
-        // Troca vírgula por ponto e converte para número
         novoValor = Number(valor.toString().replace(",", "."));
         if (isNaN(novoValor)) {
           alert("Preço inválido");
@@ -97,7 +96,6 @@ const DeletarOuAlterar = () => {
         novoValor = dataISO;
       }
 
-      // Validação com Zod (schema parcial)
       const campoSchema = produtoSchema.pick({ [campo]: true });
       const resultadoValidacao = campoSchema.safeParse({ [campo]: novoValor });
 
@@ -108,9 +106,9 @@ const DeletarOuAlterar = () => {
 
       console.log("Enviando PUT:", id, campo, novoValor);
 
-      await axios.put(`http://localhost:5000/produto/${id}`, { [campo]: novoValor }, {
+      await axios.put(`https://controle-estoque-backend-4.onrender.com/produto/${id}`, { [campo]: novoValor }, {
         headers: { "Content-Type": "application/json" },
-          withCredentials: true
+        withCredentials: true
       });
 
       const atualizados = produtos.map(prod =>

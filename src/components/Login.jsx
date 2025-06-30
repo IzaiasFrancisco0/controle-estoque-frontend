@@ -19,7 +19,7 @@ const Login = () => {
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
 
-      const resposta = await axios.post('http://localhost:5000/login', {
+      const resposta = await axios.post('https://controle-estoque-backend-4.onrender.com/login', {
         usuario,
         senha,
       });

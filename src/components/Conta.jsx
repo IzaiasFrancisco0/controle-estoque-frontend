@@ -3,23 +3,23 @@ import axios from 'axios';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 export default function PasswordForm() {
-    const [hasPassword, setHasPassword] = useState(false); 
+    const [hasPassword, setHasPassword] = useState(false);
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [mensagem, setMensagem] = useState('');
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
     const [mostrarSenhaAtual, setMostrarSenhaAtual] = useState(false);
     const [mostrarNovaSenha, setMostrarNovaSenha] = useState(false);
 
     useEffect(() => {
         const checkPassword = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/conta');
-                setHasPassword(response.data.temSenha); 
+                const response = await axios.get('https://controle-estoque-backend-4.onrender.com/conta');
+                setHasPassword(response.data.temSenha);
             } catch (error) {
                 console.error('Erro ao verificar senha:', error);
             } finally {
-                setLoading(false); 
+                setLoading(false);
             }
         };
 
@@ -30,8 +30,8 @@ export default function PasswordForm() {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/conta', {
-                senha: hasPassword ? currentPassword : newPassword, // Se já tiver senha, envia a senha antiga
+            const response = await axios.post('https://controle-estoque-backend-4.onrender.com/conta', {
+                senha: hasPassword ? currentPassword : newPassword,
                 novaSenha: newPassword,
             });
 
@@ -74,7 +74,7 @@ export default function PasswordForm() {
                         <input
                             type={mostrarSenhaAtual ? 'text' : 'password'}
                             id="current-password"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
+                            className="w-full text-gray-900 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
                             value={currentPassword}
                             onChange={(e) => setCurrentPassword(e.target.value)}
                             required
@@ -82,7 +82,7 @@ export default function PasswordForm() {
                         <button
                             type="button"
                             onClick={toggleMostrarSenhaAtual}
-                            className="absolute inset-y-0 right-0 px-3 pt-6 text-gray-500 focus:outline-none h-full" // Alterado para flex-col justify-center
+                            className="absolute inset-y-0 right-0 px-3 pt-6 text-gray-500 focus:outline-none h-full"
                         >
                             {mostrarSenhaAtual ? <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
                         </button>
@@ -96,7 +96,7 @@ export default function PasswordForm() {
                     <input
                         type={mostrarNovaSenha ? 'text' : 'password'}
                         id="new-password"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
+                        className="w-full text-gray-900 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                         required
@@ -104,7 +104,7 @@ export default function PasswordForm() {
                     <button
                         type="button"
                         onClick={toggleMostrarNovaSenha}
-                        className="absolute inset-y-0 right-0 px-3 flex pt-6 justify-center items-center text-gray-500 focus:outline-none h-full" // Alterado para flex-col justify-center
+                        className="absolute inset-y-0 right-0 px-3 flex pt-6 justify-center items-center text-gray-500 focus:outline-none h-full"
                     >
                         {mostrarNovaSenha ? <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
                     </button>
